@@ -1,5 +1,5 @@
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { Award, LayoutDashboard, GraduationCap, Globe, School, Users } from "lucide-react";
+import { Award, LayoutDashboard, GraduationCap } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
 
 function AnimatedCounter({ target, suffix = "", visible }: { target: number; suffix?: string; visible: boolean }) {
@@ -30,9 +30,7 @@ function AnimatedCounter({ target, suffix = "", visible }: { target: number; suf
 
 const achievements = [
   { icon: LayoutDashboard, value: 1, suffix: "", label: "Admin Dashboard Built", desc: "Complete e-commerce management system" },
-  { icon: School, value: 486, suffix: "", label: "Schools Reached", desc: "Through Mela Software platform" },
-  { icon: Globe, value: 50, suffix: "", label: "Countries Impacted", desc: "Global reach via EdTech" },
-  { icon: Users, value: 100, suffix: "", label: "Experts Connected", desc: "Expert-led learning content" },
+  { icon: Award, value: 6, suffix: "+", label: "Projects Completed", desc: "Frontend & full-stack projects" },
   { icon: GraduationCap, value: 2, suffix: "", label: "Certifications", desc: "Udacity Nanodegree & more" },
   { icon: Award, value: 150, suffix: "+", label: "Hours Learning", desc: "Self-directed study" },
 ];
