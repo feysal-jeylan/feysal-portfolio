@@ -42,7 +42,7 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-border">
-          <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} Feysal Jeylan. Built with HTML · CSS · JavaScript</p>
+          <p className="text-xs text-muted-foreground">© 2026 Feysal Jeylan. Built with HTML · CSS · JavaScript</p>
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             className="p-2 rounded-lg border border-border text-muted-foreground hover:text-primary hover:border-primary/40 transition-all"
