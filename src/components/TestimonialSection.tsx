@@ -1,44 +1,82 @@
 import { useState, useEffect, useCallback } from "react";
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { supabase } from "@/integrations/supabase/client";
 
-const testimonials = [
+type Testimonial = {
+  id: string;
+  client_name: string;
+  company: string | null;
+  role: string | null;
+  text: string;
+  rating: number;
+  photo: string | null;
+};
+
+const fallbackTestimonials: Testimonial[] = [
   {
-    name: "Sarah M.",
+    id: "1",
+    client_name: "Sarah M.",
     role: "Small Business Owner",
     company: "Freelance Client",
     text: "Feysal delivered a clean, responsive website that exceeded my expectations. His attention to detail and clear communication made the process smooth.",
     rating: 5,
+    photo: null,
   },
   {
-    name: "Ahmed K.",
+    id: "2",
+    client_name: "Ahmed K.",
     role: "Project Manager",
     company: "Tech Startup",
     text: "Great work on the e-commerce frontend. The admin dashboard was well-organized and intuitive. Would definitely recommend for web development projects.",
     rating: 5,
+    photo: null,
   },
   {
-    name: "Liya T.",
+    id: "3",
+    client_name: "Liya T.",
     role: "Fellow Developer",
     company: "University Peer",
     text: "Feysal's code is exceptionally clean and well-documented. He combines technical skills with strong business understanding—a rare combination.",
     rating: 5,
+    photo: null,
   },
 ];
 
 export default function TestimonialSection() {
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [testimonials, setTestimonials] = useState<Testimonial[]>(fallbackTestimonials);
   const { ref, isVisible } = useScrollAnimation();
 
-  const next = useCallback(() => setCurrent(i => (i + 1) % testimonials.length), []);
-  const prev = useCallback(() => setCurrent(i => (i - 1 + testimonials.length) % testimonials.length), []);
+  useEffect(() => {
+    supabase
+      .from("testimonials")
+      .select("*")
+      .eq("published", true)
+      .order("created_at", { ascending: false })
+      .then(({ data }) => {
+        if (data && data.length > 0) setTestimonials(data);
+      });
+  }, []);
+
+  const next = useCallback(() => setCurrent(i => (i + 1) % testimonials.length), [testimonials.length]);
+  const prev = useCallback(() => setCurrent(i => (i - 1 + testimonials.length) % testimonials.length), [testimonials.length]);
 
   useEffect(() => {
     if (paused) return;
     const timer = setInterval(next, 5000);
     return () => clearInterval(timer);
   }, [paused, next]);
+
+  // Reset current if testimonials change
+  useEffect(() => {
+    setCurrent(0);
+  }, [testimonials.length]);
+
+  if (testimonials.length === 0) return null;
+
+  const t = testimonials[current];
 
   return (
     <section className="py-24">
@@ -57,21 +95,24 @@ export default function TestimonialSection() {
             <Quote size={32} className="text-primary/30 mx-auto mb-4" />
 
             <div className="flex justify-center gap-1 mb-4">
-              {Array.from({ length: testimonials[current].rating }).map((_, i) => (
+              {Array.from({ length: t.rating }).map((_, i) => (
                 <Star key={i} size={16} className="text-primary fill-primary" />
               ))}
             </div>
 
-            <p className="text-muted-foreground text-lg mb-6 min-h-[4.5rem]">"{testimonials[current].text}"</p>
+            <p className="text-muted-foreground text-lg mb-6 min-h-[4.5rem]">"{t.text}"</p>
 
-            <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-3">
-              <span className="text-primary font-semibold text-lg">{testimonials[current].name[0]}</span>
+            <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-3 overflow-hidden">
+              {t.photo ? (
+                <img src={t.photo} alt={t.client_name} className="w-full h-full object-cover" />
+              ) : (
+                <span className="text-primary font-semibold text-lg">{t.client_name[0]}</span>
+              )}
             </div>
-            <p className="font-semibold text-foreground">{testimonials[current].name}</p>
-            <p className="text-sm text-muted-foreground">{testimonials[current].role}, {testimonials[current].company}</p>
+            <p className="font-semibold text-foreground">{t.client_name}</p>
+            <p className="text-sm text-muted-foreground">{t.role}{t.company ? `, ${t.company}` : ""}</p>
           </div>
 
-          {/* Controls */}
           <div className="flex items-center justify-center gap-4 mt-6">
             <button onClick={prev} className="p-2 rounded-lg border border-border text-muted-foreground hover:text-primary hover:border-primary/40 transition-all" aria-label="Previous testimonial">
               <ChevronLeft size={18} />

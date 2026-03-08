@@ -1,4 +1,6 @@
-import { Github, Linkedin, Mail, ExternalLink, ArrowUp } from "lucide-react";
+import { Github, Linkedin, Mail, ExternalLink, ArrowUp, Settings } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import { Link } from "react-router-dom";
 
 const navLinks = [
   { label: "About", href: "#about" },
@@ -16,6 +18,8 @@ const socials = [
 ];
 
 export default function Footer() {
+  const { user } = useAuth();
+
   return (
     <footer className="border-t border-border py-12">
       <div className="section-container">
@@ -42,7 +46,14 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-border">
-          <p className="text-xs text-muted-foreground">© 2026 Feysal Jeylan. Built with HTML · CSS · JavaScript</p>
+          <div className="flex items-center gap-4">
+            <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} Feysal Jeylan. Built with HTML · CSS · JavaScript</p>
+            {user && (
+              <Link to="/admin" className="text-xs text-muted-foreground hover:text-primary transition-colors flex items-center gap-1">
+                <Settings size={12} /> Admin
+              </Link>
+            )}
+          </div>
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             className="p-2 rounded-lg border border-border text-muted-foreground hover:text-primary hover:border-primary/40 transition-all"

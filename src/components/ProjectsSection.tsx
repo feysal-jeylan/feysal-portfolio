@@ -44,8 +44,8 @@ const projects: Project[] = [
     title: "Mela Software Project",
     category: "Tools",
     tech: ["HTML5", "CSS3", "JavaScript", "EdTech", "Responsive"],
-    description: "Educational technology platform with AI-powered learning and global community features.",
-    fullDescription: "Educational technology platform with AI-powered learning, global community features, and real-time analytics. Serving schools across multiple countries with expert-led content.",
+    description: "Educational technology platform concept - built to practice modern UI patterns and responsive design.",
+    fullDescription: "Educational technology platform concept - built to practice modern UI patterns and responsive design. This was a learning project to explore ed-tech interfaces.",
     challenges: [
       "Designing an intuitive interface for diverse user groups (students, teachers, admins)",
       "Building responsive layouts that work across low-bandwidth environments",
@@ -58,11 +58,6 @@ const projects: Project[] = [
     ],
     live: "https://feysal-jeylan.github.io/Mela-Software/",
     github: "https://github.com/feysal-jeylan/Mela-Software-Project",
-    stats: [
-      { label: "Schools", value: "486" },
-      { label: "Countries", value: "50" },
-      { label: "Experts", value: "100" },
-    ],
   },
   {
     title: "Amazon Clone",
