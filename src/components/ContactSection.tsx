@@ -1,12 +1,18 @@
 import { useState } from "react";
-import { Mail, MapPin, Clock, Send } from "lucide-react";
+import { Mail, MapPin, Clock, Send, Loader2 } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { toast } from "sonner";
+import emailjs from "@emailjs/browser";
+
+const SERVICE_ID = "service_nxaflp9";
+const TEMPLATE_ID = "template_1a428is";
+const PUBLIC_KEY = "PNWznV4VWb7AZYx9y";
 
 export default function ContactSection() {
   const { ref, isVisible } = useScrollAnimation();
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [sending, setSending] = useState(false);
 
   const validate = () => {
     const e: Record<string, string> = {};
@@ -21,9 +27,23 @@ export default function ContactSection() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validate()) return;
-    toast.success("Message sent! I'll respond within 24 hours.");
-    setForm({ name: "", email: "", message: "" });
+    if (!validate() || sending) return;
+    setSending(true);
+    emailjs
+      .send(SERVICE_ID, TEMPLATE_ID, {
+        from_name: form.name,
+        from_email: form.email,
+        message: form.message,
+        to_email: "feysaljeylan67@gmail.com",
+      }, PUBLIC_KEY)
+      .then(() => {
+        toast.success("Message sent! I'll respond within 24 hours.");
+        setForm({ name: "", email: "", message: "" });
+      })
+      .catch(() => {
+        toast.error("Failed to send. Please email me directly.");
+      })
+      .finally(() => setSending(false));
   };
 
   return (
