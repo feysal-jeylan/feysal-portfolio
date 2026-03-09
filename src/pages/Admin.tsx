@@ -239,6 +239,8 @@ function downloadJSON(data: unknown, filename: string) {
   URL.revokeObjectURL(url);
 }
 
+const ADMIN_EMAIL = "feysaljeylan67@gmail.com";
+
 export default function Admin() {
   const { user, loading, signIn, signOut } = useAuth();
   const [tab, setTab] = useState<"blog" | "testimonials">("blog");
@@ -304,6 +306,23 @@ export default function Admin() {
   }
 
   if (!user) return <LoginForm onLogin={handleLogin} />;
+
+  if (user.email !== ADMIN_EMAIL) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        <div className="glass-card p-8 w-full max-w-md text-center">
+          <h1 className="text-xl font-bold text-foreground mb-2">Access denied</h1>
+          <p className="text-sm text-muted-foreground mb-6">This admin area is restricted to the owner account.</p>
+          <div className="flex items-center justify-center gap-3">
+            <Link to="/" className="px-4 py-2 rounded-lg border border-border text-foreground text-sm hover:bg-secondary transition-colors">Back to site</Link>
+            <button onClick={() => signOut()} className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm hover:bg-emerald-bright transition-colors">
+              Sign out
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
