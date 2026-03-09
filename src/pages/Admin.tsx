@@ -239,6 +239,8 @@ function downloadJSON(data: unknown, filename: string) {
   URL.revokeObjectURL(url);
 }
 
+const ADMIN_EMAIL = "feysaljeylan67@gmail.com";
+
 export default function Admin() {
   const { user, loading, signIn, signOut } = useAuth();
   const [tab, setTab] = useState<"blog" | "testimonials">("blog");
