@@ -24,9 +24,9 @@ const fallbackPosts = [
     content: "How I built order management, inventory tracking, and real-time analytics from scratch using HTML, CSS, and JavaScript.",
     excerpt: "How I built order management, inventory tracking, and real-time analytics from scratch using HTML, CSS, and JavaScript.",
     tags: ["E-Commerce", "Admin Dashboard", "JavaScript"],
-    published_at: "2026-03-01",
+    published_at: "2025-03-01",
     read_time: "5 min read",
-    created_at: "2026-03-01",
+    created_at: "2025-03-01",
   },
   {
     id: "2",
@@ -35,9 +35,9 @@ const fallbackPosts = [
     content: "Lessons learned from building responsive websites that prioritize the mobile experience from day one.",
     excerpt: "Lessons learned from building responsive websites that prioritize the mobile experience from day one.",
     tags: ["Responsive", "CSS", "Mobile"],
-    published_at: "2026-02-01",
+    published_at: "2025-02-15",
     read_time: "4 min read",
-    created_at: "2026-02-01",
+    created_at: "2025-02-15",
   },
   {
     id: "3",
@@ -46,9 +46,9 @@ const fallbackPosts = [
     content: "My journey of studying Business & Information Systems while teaching myself frontend development on the side.",
     excerpt: "My journey of studying Business & Information Systems while teaching myself frontend development on the side.",
     tags: ["Career", "Learning", "University"],
-    published_at: "2026-01-01",
+    published_at: "2025-01-20",
     read_time: "5 min read",
-    created_at: "2026-01-01",
+    created_at: "2025-01-20",
   },
 ];
 
