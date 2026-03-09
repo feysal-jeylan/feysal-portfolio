@@ -323,6 +323,8 @@ export default function Admin() {
       </div>
     );
   }
+
+  return (
     <div className="min-h-screen bg-background">
       <header className="border-b border-border">
         <div className="section-container flex items-center justify-between h-16">
