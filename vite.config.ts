@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: "/emerald-canvas-pro/",
+  base: mode === "production" ? "/emerald-canvas-pro/" : "/",
   server: {
     host: "::",
     port: 8080,
