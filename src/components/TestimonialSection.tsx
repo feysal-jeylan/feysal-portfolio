@@ -58,7 +58,7 @@ export default function TestimonialSection() {
         </h2>
 
         <div
-          className={`relative max-w-2xl mx-auto transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+          className="relative max-w-2xl mx-auto transition-all duration-700 opacity-100 translate-y-0"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
